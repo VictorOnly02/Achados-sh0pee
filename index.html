@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Achados da Shopee</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --laranja: #EE4D2D;
+    --laranja-claro: #FF6633;
+    --laranja-suave: #FFF0ED;
+    --laranja-borda: #FFCFC4;
+    --cinza-bg: #F5F5F5;
+    --cinza-card: #FFFFFF;
+    --texto: #333333;
+    --texto-suave: #888888;
+    --verde: #26AA99;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--cinza-bg);
+    color: var(--texto);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--laranja);
+    padding: 0;
+    box-shadow: 0 2px 12px rgba(238,77,45,0.25);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-top {
+    background: linear-gradient(135deg, #c13515 0%, var(--laranja) 50%, var(--laranja-claro) 100%);
+    padding: 18px 24px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .logo-shopee {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .shopee-icon {
+    width: 38px;
+    height: 38px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .shopee-icon img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+  }
+
+  .site-title {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: white;
+    letter-spacing: -0.5px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+
+  .site-subtitle {
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .header-nav {
+    background: rgba(0,0,0,0.12);
+    padding: 8px 16px;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .header-nav::-webkit-scrollbar { display: none; }
+
+  .nav-tag {
+    background: rgba(255,255,255,0.18);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .nav-tag:hover, .nav-tag.ativo {
+    background: white;
+    color: var(--laranja);
+  }
+
+  /* HERO BANNER */
+  .hero {
+    background: linear-gradient(135deg, var(--laranja-suave) 0%, #ffe8e2 100%);
+    border-bottom: 2px dashed var(--laranja-borda);
+    padding: 20px 20px 16px;
+    text-align: center;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: var(--laranja);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .hero h2 {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--laranja);
+    margin-bottom: 4px;
+  }
+
+  .hero p {
+    font-size: 0.8rem;
+    color: var(--texto-suave);
+  }
+
+  /* GRID DE PRODUTOS */
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px 16px 40px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .section-header h3 {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--texto);
+  }
+
+  .section-header .linha {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(to right, var(--laranja-borda), transparent);
+    border-radius: 2px;
+  }
+
+  .produtos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+
+  @media (min-width: 500px) {
+    .produtos-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* CARD DE PRODUTO */
+  .card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    border: 1px solid #f0f0f0;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    cursor: pointer;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(238,77,45,0.15);
+    border-color: var(--laranja-borda);
+  }
+
+  .card-img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    background: var(--cinza-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card-img.placeholder {
+    font-size: 2.5rem;
+    height: 130px;
+  }
+
+  .card-body {
+    padding: 10px 10px 12px;
+  }
+
+  .card-nome {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--texto);
+    line-height: 1.35;
+    margin-bottom: 6px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card-preco {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 900;
+    color: var(--laranja);
+  }
+
+  .card-preco-de {
+    font-size: 0.7rem;
+    color: var(--texto-suave);
+    text-decoration: line-through;
+    font-weight: 400;
+    margin-right: 4px;
+  }
+
+  .card-tag {
+    display: inline-block;
+    background: var(--laranja-suave);
+    color: var(--laranja);
+    font-size: 0.62rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin-top: 5px;
+  }
+
+  .btn-comprar {
+    display: block;
+    margin: 8px 10px 10px;
+    background: var(--laranja);
+    color: white;
+    text-align: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 7px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .btn-comprar:hover { background: #c13515; }
+
+  /* CARD VAZIO */
+  .card-adicionar {
+    border: 2px dashed var(--laranja-borda);
+    background: var(--laranja-suave);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 24px 10px;
+    cursor: default;
+    min-height: 200px;
+  }
+
+  .card-adicionar .mais {
+    font-size: 2rem;
+    color: var(--laranja);
+    font-weight: 900;
+  }
+
+  .card-adicionar p {
+    font-size: 0.7rem;
+    color: var(--laranja);
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--laranja);
+    color: white;
+    text-align: center;
+    padding: 16px;
+    font-size: 0.72rem;
+    opacity: 0.92;
+  }
+
+  footer span { font-weight: 700; }
+
+  /* ANIMAÇÃO */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .card { animation: fadeUp 0.35s ease both; }
+  .card:nth-child(1) { animation-delay: 0.05s; }
+  .card:nth-child(2) { animation-delay: 0.10s; }
+  .card:nth-child(3) { animation-delay: 0.15s; }
+  .card:nth-child(4) { animation-delay: 0.20s; }
+  .card:nth-child(5) { animation-delay: 0.25s; }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="header-top">
+    <div class="logo-shopee">
+      <div class="shopee-icon">
+        <img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/icon.png"
+             alt="Shopee"
+             onerror="this.parentNode.innerHTML='🛍️'">
+      </div>
+      <div>
+        <div class="site-title">Achados da Shopee</div>
+      </div>
+    </div>
+    <div class="site-subtitle">🔥 Os melhores produtos com os melhores preços</div>
+  </div>
+
+  <div class="header-nav">
+    <span class="nav-tag ativo">Todos</span>
+    <span class="nav-tag">Casa</span>
+    <span class="nav-tag">Moda</span>
+    <span class="nav-tag">Eletrônicos</span>
+    <span class="nav-tag">Beleza</span>
+    <span class="nav-tag">Kids</span>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-badge">✨ Curadoria diária</div>
+  <h2>Achados que valem a pena!</h2>
+  <p>Produtos selecionados com menor preço e melhor avaliação 🛒</p>
+</div>
+
+<!-- ===== PRODUTOS ===== -->
+<div class="container">
+  <div class="section-header">
+    <h3>🔥 Destaques do dia</h3>
+    <div class="linha"></div>
+  </div>
+
+  <div class="produtos-grid" id="grade-produtos">
+
+    <!--
+    =====================================================
+    👇 COMO ADICIONAR UM PRODUTO:
+
+    Copie o bloco abaixo, cole ANTES do bloco "SLOT VAZIO",
+    e preencha: href, emoji (ou img), nome, preços e tag.
+
+    <a class="card" href="LINK_DA_SHOPEE" target="_blank" rel="nofollow">
+      <div class="card-img placeholder">🛍️</div>
+      <div class="card-body">
+        <div class="card-nome">Nome do produto</div>
+        <div>
+          <span class="card-preco-de">R$ 00,00</span>
+          <span class="card-preco">R$ 00,00</span>
+        </div>
+        <span class="card-tag">Tag aqui</span>
+      </div>
+      <a class="btn-comprar" href="LINK_DA_SHOPEE" target="_blank" rel="nofollow">Ver na Shopee →</a>
+    </a>
+
+    Para usar foto real, substitua a div card-img placeholder por:
+    <div class="card-img"><img src="URL_DA_FOTO" alt="nome do produto"></div>
+    =====================================================
+    -->
+
+    <!-- PRODUTO 1 -->
+    <a class="card" href="SEU_LINK_AQUI" target="_blank" rel="nofollow">
+      <div class="card-img placeholder">🎧</div>
+      <div class="card-body">
+        <div class="card-nome">Fone Bluetooth sem fio com cancelamento de ruído</div>
+        <div>
+          <span class="card-preco-de">R$ 89,90</span>
+          <span class="card-preco">R$ 39,90</span>
+        </div>
+        <span class="card-tag">-55% OFF</span>
+      </div>
+      <a class="btn-comprar" href="SEU_LINK_AQUI" target="_blank" rel="nofollow">Ver na Shopee →</a>
+    </a>
+
+    <!-- PRODUTO 2 -->
+    <a class="card" href="SEU_LINK_AQUI" target="_blank" rel="nofollow">
+      <div class="card-img placeholder">💄</div>
+      <div class="card-body">
+        <div class="card-nome">Kit maquiagem 10 peças à prova d'água</div>
+        <div>
+          <span class="card-preco-de">R$ 120,00</span>
+          <span class="card-preco">R$ 49,90</span>
+        </div>
+        <span class="card-tag">Mais vendido</span>
+      </div>
+      <a class="btn-comprar" href="SEU_LINK_AQUI" target="_blank" rel="nofollow">Ver na Shopee →</a>
+    </a>
+
+    <!-- PRODUTO 3 -->
+    <a class="card" href="SEU_LINK_AQUI" target="_blank" rel="nofollow">
+      <div class="card-img placeholder">🏠</div>
+      <div class="card-body">
+        <div class="card-nome">Organizador de gaveta dobrável 6 divisórias</div>
+        <div>
+          <span class="card-preco">R$ 22,90</span>
+        </div>
+        <span class="card-tag">Frete grátis</span>
+      </div>
+      <a class="btn-comprar" href="SEU_LINK_AQUI" target="_blank" rel="nofollow">Ver na Shopee →</a>
+    </a>
+
+    <!-- SLOT VAZIO — substitua por um produto novo -->
+    <div class="card-adicionar">
+      <div class="mais">+</div>
+      <p>Adicione seu<br>próximo produto aqui</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <span>Achados da Shopee</span> — Links de afiliado · Os preços podem variar
+</footer>
+
+</body>
+</html>
